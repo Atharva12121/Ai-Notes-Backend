@@ -18,7 +18,7 @@ load_dotenv()
 
 app = Flask(__name__) # Create the Flask application instance
 
-CORS(app, origins=["https://ai-notes-frontend-rqwp.vercel.app"])
+CORS(app, supports_credentials=True,origins=["https://ai-notes-frontend-rqwp.vercel.app"])
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
