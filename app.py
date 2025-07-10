@@ -71,9 +71,9 @@ def handle_notes():
     # ✅ Minimal required return for GEt
     return jsonify({"message": "GET request received. This route is for POSTing notes."}), 200
 
-@app.route('/')
-def redirect_to_frontend():
-    return redirect("/Addnotes")
+# @app.route('/')
+# def redirect_to_frontend():
+#     return redirect("/Addnotes")
 
 
 # Show
