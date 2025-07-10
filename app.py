@@ -17,8 +17,17 @@ load_dotenv()
 
 
 app = Flask(__name__) # Create the Flask application instance
+# Correct and complete CORS setup
+CORS(app, resources={r"/*": {"origins": "https://ai-notes-frontend-rqwp.vercel.app"}}, supports_credentials=True)
 
-CORS(app, supports_credentials=True,origins=["https://ai-notes-frontend-rqwp.vercel.app"])
+# Optional: enforce headers in every response
+@app.after_request
+def after_request(response):
+    response.headers.add("Access-Control-Allow-Origin", "https://ai-notes-frontend-rqwp.vercel.app")
+    response.headers.add("Access-Control-Allow-Credentials", "true")
+    response.headers.add("Access-Control-Allow-Headers", "Content-Type,Authorization")
+    response.headers.add("Access-Control-Allow-Methods", "GET,POST,OPTIONS,DELETE")
+    return response
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
@@ -34,7 +43,7 @@ db.init_app(app)
 # Define a route for the root URL
 @app.route('/Addnotes', methods=['GET', 'POST'])
 def handle_notes():
-    if request.method == 'POST':
+    if request.method == 'OPTIONS':
         data = request.get_json()
 
         title = data.get("title", "")
