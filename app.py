@@ -41,7 +41,7 @@ db.init_app(app)
 
 
 # Define a route for the root URL
-@app.route('/Addnotes', methods=['GET', 'POST'])
+@app.route('/Addnotes', methods=['POST'])
 def handle_notes():
     if request.method == 'POST':
         data = request.get_json()
