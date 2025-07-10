@@ -18,7 +18,7 @@ frontend_origin = os.getenv("FRONTEND_URL")
 
 app = Flask(__name__) # Create the Flask application instance
 # Correct and complete CORS setup
-CORS(app, resources={r"/*": {"origins": frontend_origin}}, supports_credentials=True)
+CORS(app, supports_credentials=True, origins=[frontend_origin])
 
 # Optional: enforce headers in every response
 @app.after_request
@@ -71,9 +71,9 @@ def handle_notes():
     # ✅ Minimal required return for GEt
     return jsonify({"message": "GET request received. This route is for POSTing notes."}), 200
 
-@app.route('/')
-def redirect_to_frontend():
-    return redirect("/Addnotes")
+# @app.route('/')
+# def redirect_to_frontend():
+#     return redirect("/Addnotes")
 
 
 # Show
