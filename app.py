@@ -14,16 +14,16 @@ import io
 load_dotenv()
 
 
-
+frontend_origin = os.getenv("FRONTEND_URL")
 
 app = Flask(__name__) # Create the Flask application instance
 # Correct and complete CORS setup
-CORS(app, resources={r"/*": {"origins": "https://ai-notes-front.vercel.app"}}, supports_credentials=True)
+CORS(app, resources={r"/*": {"origins": frontend_origin}}, supports_credentials=True)
 
 # Optional: enforce headers in every response
 @app.after_request
 def after_request(response):
-    response.headers.add("Access-Control-Allow-Origin", "https://ai-notes-front.vercel.app")
+    response.headers.add("Access-Control-Allow-Origin", frontend_origin)
     response.headers.add("Access-Control-Allow-Credentials", "true")
     response.headers.add("Access-Control-Allow-Headers", "Content-Type,Authorization")
     response.headers.add("Access-Control-Allow-Methods", "GET,POST,OPTIONS,DELETE")
