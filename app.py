@@ -18,12 +18,12 @@ load_dotenv()
 
 app = Flask(__name__) # Create the Flask application instance
 # Correct and complete CORS setup
-CORS(app, resources={r"/*": {"origins": "https://ai-notes-frontend-rqwp.vercel.app"}}, supports_credentials=True)
+CORS(app, resources={r"/*": {"origins": "https://ai-notes-front.vercel.app"}}, supports_credentials=True)
 
 # Optional: enforce headers in every response
 @app.after_request
 def after_request(response):
-    response.headers.add("Access-Control-Allow-Origin", "https://ai-notes-frontend-rqwp.vercel.app")
+    response.headers.add("Access-Control-Allow-Origin", "https://ai-notes-front.vercel.app")
     response.headers.add("Access-Control-Allow-Credentials", "true")
     response.headers.add("Access-Control-Allow-Headers", "Content-Type,Authorization")
     response.headers.add("Access-Control-Allow-Methods", "GET,POST,OPTIONS,DELETE")
@@ -43,7 +43,7 @@ db.init_app(app)
 # Define a route for the root URL
 @app.route('/Addnotes', methods=['GET', 'POST'])
 def handle_notes():
-    if request.method == 'OPTIONS':
+    if request.method == 'POST':
         data = request.get_json()
 
         title = data.get("title", "")
