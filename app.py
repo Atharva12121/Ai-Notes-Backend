@@ -58,6 +58,10 @@ def handle_notes():
                 "category": category
             }
         })
+    
+    # ✅ Minimal required return for GEt
+    return jsonify({"message": "GET request received. This route is for POSTing notes."}), 200
+
 @app.route('/')
 def redirect_to_frontend():
     return redirect("/Addnotes")
@@ -268,8 +272,9 @@ def dummy_ai_generate(prompt):
     return f"[AI OUTPUT BASED ON PROMPT]\n\n{prompt[:400]}..."
 
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 5000))  # Render provides PORT env variable
-    app.run(host='0.0.0.0', port=port)
+    with app.app_context():  
+        db.create_all()
+    app.run(debug=True, port=5000)
 
 
 
