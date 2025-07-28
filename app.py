@@ -32,10 +32,10 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 
-# if os.environ.get("CREATE_TABLES_ON_START") == "1":
-#     with app.app_context():
-#         db.create_all()
-#         print("✅ Tables created successfully.")
+if os.environ.get("CREATE_TABLES_ON_START") == "1":
+    with app.app_context():
+        db.create_all()
+        print("✅ Tables created successfully.")
 
 # By using class we can define our  database schema 
 
